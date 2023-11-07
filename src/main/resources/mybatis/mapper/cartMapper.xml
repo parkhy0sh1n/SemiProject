@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.vinery.mapper.CartMapper">
+
+
+	<select id="selectUserNoById" parameterType="String" resultType="int">
+		SELECT USER_NO
+		  FROM USERS
+		 WHERE USER_ID = #{userId} 
+	</select>
+	
+	<select id="selectProductByNo" parameterType="int" resultType="CartDTO">
+		SELECT PROD_NAME, PROD_PRICE, PROD_THUMBNAIL
+		  FROM PRODUCT 
+		 WHERE PROD_NO = #{prodNo} 
+	</select>
+	
+	<!-- 이미 장바구니에 담긴 상품인지 확인 -->
+	<select id="selectAlreadyInCart" parameterType="CartDTO" resultType="CartDTO">
+		SELECT CART_NO, USER_NO, PROD_NO, QUANTITY, PROD_NAME, PROD_PRICE, PROD_THUMBNAIL
+		  FROM CART
+		 WHERE USER_NO = #{userNo} AND PROD_NO = #{prodNo}
+	</select>
+	
+	<insert id="insertCart" parameterType="CartDTO">
+		INSERT INTO CART (CART_NO, USER_NO, PROD_NO, QUANTITY, PROD_NAME, PROD_PRICE, PROD_THUMBNAIL)
+				VALUES (CART_SEQ.NEXTVAL, #{userNo}, #{prodNo}, #{quantity}, #{prodName}, #{prodPrice}, #{prodThumbnail})
+	</insert>
+
+	<select id="selectCartList" parameterType="int" resultType="CartDTO">
+		SELECT CART_NO, USER_NO, PROD_NO, QUANTITY, PROD_NAME, PROD_PRICE, PROD_THUMBNAIL
+		  FROM CART
+		 WHERE USER_NO = #{userNo} 
+	</select>
+
+	<delete id="deleteByProdNo" parameterType="Map">
+		DELETE FROM CART
+		 WHERE USER_NO = #{userNo} AND PROD_NO = #{prodNo}
+	</delete>
+	
+	<update id="updateCartQuantity" parameterType="Map">
+		UPDATE CART
+		   SET QUANTITY = #{quantity}
+		 WHERE PROD_NO = #{prodNo}  
+	</update>
+
+</mapper>

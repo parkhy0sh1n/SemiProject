@@ -1,0 +1,223 @@
+@charset "UTF-8";
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+/* CSS 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* color: c333; */
+}
+a,
+a:active,
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input[type="button"],
+input[type="checkBox"],
+label {
+  border: 0;
+  cursor: pointer;
+}
+ul,
+li,
+ol,
+dl,
+menu {
+  list-style: none;
+}
+html,
+body {
+  min-height: 100%;
+}
+
+/* cartTitle */
+.cartTitle {
+  background-color: #f8f8ff;
+  height: 200px;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.cartTitle h1 {
+  margin-bottom: 40px;
+}
+
+.cartTitle ul {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.cartTitle span {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.cartTitle i,
+.cartTitle span {
+  margin: 0 20px;
+  opacity: 0.5;
+}
+.cartTitle .cart {
+  opacity: 1;
+}
+
+.cartTitle .cartTitleIcon {
+  margin-bottom: 15px;
+}
+
+.cartTitle .arrow {
+  padding-top: 20px;
+}
+
+/* cartBody */
+.cartBody {
+  padding: 40px 0 120px 0;
+  width: auto;
+  height: 100%;
+  margin-bottom: 100px;
+}
+
+/* cartLogin */
+.cartLogin {
+  display: flex;
+  border: 1px solid #c5c5c5;
+  padding: 41px 86px 39px 42px;
+  width: 1200px;
+  height: 130px;
+  justify-content: space-between;
+  margin: auto;
+  margin-bottom: 60px;
+}
+.cartLoginBtn input {
+  border: 1px solid #ac8b68;
+  width: 180px;
+  height: 50px;
+}
+.cartLoginBtn input:first-child {
+  color: #ac8b68;
+  background-color: #ffffff;
+  margin-right: 7px;
+}
+.cartLoginBtn input:last-child {
+  color: #ffffff;
+  background-color: #ac8b68;
+}
+
+/* cartListTop */
+.cartList {
+  margin: auto;
+  height: 100%;
+}
+.listTop {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  margin: auto;
+  margin-bottom: 30px;
+  color: #ac8b68;
+}
+.checkbox {
+  display: flex;
+  height: 25px;
+  line-height: 25px;
+}
+.selectDelete input {
+  background-color: #ffffff;
+  border: 1px solid #9f9f9f;
+  width: 90px;
+  height: 34px;
+}
+
+hr {
+  background-color: #ac8b68;
+  width: 1200px;
+  height: 1px;
+  border: none;
+  margin: auto;
+}
+
+/* listBody */
+table {
+	margin: 0 auto;
+	border-collapse: collapse;
+	width: 1200px;
+}
+tr {
+	 height: 150px; /* 원하는 높이로 설정 */
+    border-bottom: 5px solid #c8c8c8; /* border-bottom 스타일을 설정 */
+}
+
+tr > td {
+	height: 150px;
+	font-size: 20px;
+	font-weight: 700px;
+	font-size: 19px;
+  	font-weight: 900;
+  	color: #5f5f5f;
+}
+.checkOne {
+	height: 150px;
+	line-height: 150px;
+}
+.cartImg {
+	margin-bottom: 25px;
+}
+
+.quantity {
+	width: 20px;
+	height: 20px;
+}
+.priceWrap, .amountWrap {
+	text-align: center;
+}
+
+
+/* totalPrice */
+.totalPrice {
+  width: 1200px;
+  height: 120px;
+  border: 1px solid #ac8b68;
+  margin: 10px auto 60px auto;
+  text-align: center;
+  line-height: 120px;
+}
+
+.totalPrice span {
+  font-size: 28px;
+  font-weight: 900;
+}
+.totalPrice span:first-child {
+  color: #ac8b68;
+}
+.totalPrice span:last-child {
+  color: #5f5f5f;
+}
+
+/* btnShopping */
+.btnShopping {
+  width: 1200px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.btnShopping button {
+  background-color: #ffffff;
+  width: 160px;
+  height: 100%;
+  border: 1px solid #ac8b68;
+  border-radius: 5px;
+  margin: 0 3px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ac8b68;
+}
+.btnShopping button:last-child {
+  background-color: #ac8b68;
+  color: #ffffff;
+}

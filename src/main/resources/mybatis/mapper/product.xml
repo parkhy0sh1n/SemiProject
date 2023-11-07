@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.vinery.mapper.ProductMapper">
+
+    <select id="getProductList" resultType="ProductDTO">
+        SELECT *
+          FROM PRODUCT
+    </select>
+    
+    <select id="getProductByNo" parameterType="int" resultType="ProductDTO">
+        SELECT *
+          FROM PRODUCT
+         WHERE PROD_NO = #{prodNo}
+    </select>
+    
+    <select id="getReviewsByProductNo" parameterType="int" resultType="ReviewDTO">
+        SELECT * 
+          FROM REVIEW 
+         WHERE ORDER_NO = #{prodNo}
+    </select>
+    
+    <select id="searchProduct" parameterType="String" resultType="ProductDTO">
+        SELECT *
+          FROM PRODUCT
+         WHERE PROD_NAME LIKE '%' || #{keyword} || '%'
+    </select>
+    
+</mapper>

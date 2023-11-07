@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.vinery.mapper.UserMapper">
+
+	  <select id="selectUserById" parameterType="String" resultType="UserDTO">
+	    SELECT USER_NO
+			  , USER_ID
+			  , USER_PW
+			  , USER_NAME
+			  , USER_TEL
+			  , USER_POST
+			  , USER_ROAD_ADDRESS
+			  , USER_JIBUN_ADDRESS
+			  , USER_DETAIL_ADDRESS
+			  , USER_EXTRA_ADDRESS
+			  , USER_EMAIL
+			  , USER_BIRTH
+			  , USER_GENDER
+			  , USER_PW_MODIFIED_AT
+			  , USER_AGREECODE
+			  , USER_STATE
+			  , USER_JOINED_AT
+			  , USER_AUTOLOGIN_ID
+			  , USER_AUTOLOGIN_EXPIRED_AT
+	      FROM USERS
+	     WHERE USER_ID = #{userId}
+	  </select>
+	  
+	  <select id="selectSleepUserById" parameterType="String" resultType="SleepUserDTO">
+	    SELECT USER_ID
+	      FROM SLEEP_USERS
+	     WHERE USER_ID = #{userId}
+	  </select>
+	
+	  <select id="selectLeaveUserById" parameterType="String" resultType="LeaveUserDTO">
+	    SELECT USER_ID
+	      FROM LEAVE_USERS
+	     WHERE USER_ID = #{userId}
+	  </select>
+	
+		<select id="selectUserByEmail" parameterType="String" resultType="UserDTO">
+	    SELECT USER_EMAIL, USER_ID, USER_JOINED_AT
+	      FROM USERS
+	     WHERE USER_EMAIL = #{userEmail}
+	  </select>
+	  
+	  <select id="selectSleepUserByEmail" parameterType="String" resultType="SleepUserDTO">
+	    SELECT USER_EMAIL
+	      FROM SLEEP_USERS
+	     WHERE USER_EMAIL = #{userEmail}
+	  </select>
+	
+	  <select id="selectLeaveUserByEmail" parameterType="String" resultType="LeaveUserDTO">
+	    SELECT USER_EMAIL
+	      FROM LEAVE_USERS
+	     WHERE USER_EMAIL = #{userEmail}
+	  </select>
+	
+	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="UserDTO">
+			INSERT INTO USERS (
+				USER_NO
+			  , USER_ID
+			  , USER_PW
+			  , USER_NAME
+			  , USER_TEL
+			  , USER_POST
+			  , USER_ROAD_ADDRESS
+			  , USER_JIBUN_ADDRESS
+			  , USER_DETAIL_ADDRESS
+			  , USER_EXTRA_ADDRESS
+			  , USER_EMAIL
+			  , USER_BIRTH
+			  , USER_GENDER
+			  , USER_PW_MODIFIED_AT
+			  , USER_AGREECODE
+			  , USER_STATE
+			  , USER_JOINED_AT
+			  , USER_AUTOLOGIN_ID
+			  , USER_AUTOLOGIN_EXPIRED_AT
+			) VALUES (
+				USERS_SEQ.NEXTVAL
+		      , #{userId}
+		      , #{userPw}
+		      , #{userName}
+		      , #{userTel}
+		      , #{userPost}
+		      , #{userRoadAddress}
+		      , #{userJibunAddress}
+		      , #{userDetailAddress}
+		      , #{userExtraAddress}
+		      , #{userEmail}
+		      , #{userBirth}
+		      , #{userGender}
+		      , SYSDATE
+		      , #{userAgreecode}
+		      , #{userState}
+		      , SYSDATE
+		      , NULL
+		      , NULL
+			)
+		</insert>
+		
+		
+		
+		<!-- 로그인 및 자동로그인 -->
+	  <select id="selectUserByUserDTO" parameterType="UserDTO" resultType="UserDTO">
+	    SELECT USER_ID
+	      FROM USERS
+	     WHERE USER_ID = #{userId}
+	       AND USER_PW = #{userPw}
+	  </select>
+	  <insert id="insertUserAccess" parameterType="String">
+	    INSERT INTO ACCESS_USERS (
+	        USER_ID
+	      , LAST_LOGIN_AT
+	    ) VALUES (
+	        #{userId}
+	      , SYSDATE
+	    )
+	  </insert>
+	  <update id="updateUserAccess" parameterType="String">
+	    UPDATE ACCESS_USERS
+	       SET LAST_LOGIN_AT = SYSDATE
+	     WHERE USER_ID = #{userId}
+	  </update>
+	  <update id="insertAutologin" parameterType="UserDTO">
+	    UPDATE USERS
+	       SET USER_AUTOLOGIN_ID = #{userAutologinId}
+	         , USER_AUTOLOGIN_EXPIRED_AT = #{userAutologinExpiredAt}
+	     WHERE USER_ID = #{userId}
+	  </update>
+	  <update id="deleteAutologin" parameterType="String">
+	    UPDATE USERS
+	       SET USER_AUTOLOGIN_ID = NULL
+	         , USER_AUTOLOGIN_EXPIRED_AT = NULL
+	     WHERE USER_ID = #{userId}
+	  </update>
+	  <select id="selectAutologin" parameterType="String" resultType="UserDTO">
+	    SELECT USER_ID
+	      FROM USERS
+	     WHERE USER_AUTOLOGIN_ID = #{userAutologinId}
+	       AND USER_AUTOLOGIN_EXPIRED_AT > SYSDATE
+	  </select>
+		
+		
+		
+	  <!-- 회원 탈퇴 -->
+	<insert id="insertLeaveUser" parameterType="LeaveUserDTO">
+	 INSERT INTO LEAVE_USERS (
+	     USER_ID
+	   , USER_EMAIL
+	   , USER_JOINED_AT
+	   , USER_LEAVED_AT
+	 ) VALUES (
+	     #{userId}
+	   , #{userEmail}
+	   , #{userJoinedAt}
+	   , SYSDATE
+	 )
+	</insert>
+	<delete id="deleteUser" parameterType="String">
+	  DELETE
+	    FROM USERS
+	   WHERE USER_ID = #{userId}
+	</delete>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+</mapper>

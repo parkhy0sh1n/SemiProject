@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.vinery.mapper.NoticeMapper">
+
+	<select id="getNoticeList" parameterType="List" resultType="NoticeDTO">
+		SELECT *
+		  FROM NOTICE
+		 ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<select id="getNotice" resultType="NoticeDTO">
+		SELECT *
+		  FROM NOTICE
+		 WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	
+	<select id="searchNotices" parameterType="String" resultType="NoticeDTO">
+	    SELECT *
+	      FROM NOTICE
+	     WHERE NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+	     ORDER BY NOTICE_NO DESC
+	</select>
+
+</mapper>

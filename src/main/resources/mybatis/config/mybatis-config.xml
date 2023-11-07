@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- settings -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<!-- typeAliases -->
+	<typeAliases>
+		<typeAlias alias="AccessUserDTO"      	type="com.gdu.vinery.domain.AccessUserDTO" />
+		<typeAlias alias="CartDTO"       		type="com.gdu.vinery.domain.CartDTO" />
+		<typeAlias alias="LeaveUserDTO"       	type="com.gdu.vinery.domain.LeaveUserDTO" />
+		<typeAlias alias="NoticeDTO"       		type="com.gdu.vinery.domain.NoticeDTO" />
+		<typeAlias alias="OrderDetailDTO"       type="com.gdu.vinery.domain.OrderDetailDTO" />
+		<typeAlias alias="OrderListDTO"       	type="com.gdu.vinery.domain.OrderListDTO" />
+		<typeAlias alias="OrdersDTO"       		type="com.gdu.vinery.domain.OrdersDTO" />
+		<typeAlias alias="ProductDTO"       	type="com.gdu.vinery.domain.ProductDTO" />
+		<typeAlias alias="QnaDTO"       		type="com.gdu.vinery.domain.QnaDTO" />
+		<typeAlias alias="ReviewDTO"       		type="com.gdu.vinery.domain.ReviewDTO" />
+		<typeAlias alias="SleepUserDTO"       	type="com.gdu.vinery.domain.SleepUserDTO" />
+		<typeAlias alias="UserDTO"       		type="com.gdu.vinery.domain.UserDTO" />
+	</typeAliases>
+
+</configuration>

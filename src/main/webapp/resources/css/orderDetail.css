@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+/* CSS 초기화 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* color: c333; */
+}
+a,
+a:active,
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input[type="button"],
+input[type="checkBox"],
+label {
+  border: 0;
+  cursor: pointer;
+}
+ul,
+li,
+ol,
+dl,
+menu {
+  list-style: none;
+}
+html,
+body {
+  min-height: 100%;
+}
+
+/* 배송 정보 */
+textarea {
+	resize: none;
+}
+
+
+#btnPay {
+	width: 150px;
+	height: 70px;
+	outline: 1px solid #ac8b68;
+	color: #ac8b68;
+	font-size: 20px;
+	background-color: transparent;
+}

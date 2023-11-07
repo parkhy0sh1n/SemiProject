@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.vinery.mapper.ReviewMapper">
+	
+	<resultMap id="ReviewResultMap" type="ReviewDTO">
+		<id property="reviewNo" column="REVIEW_NO" />
+		<result property="userDTO.userId" column="USER_ID" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
+		<result property="reviewGrade" column="REVIEW_GRADE" />
+		<result property="reviewCreatedAt" column="REVIEW_CREATED_AT" />
+	</resultMap>
+	
+	<select id="getReviewList" resultMap="ReviewResultMap">
+		SELECT R.REVIEW_NO, U.USER_ID, R.REVIEW_CONTENT, R.REVIEW_GRADE, R.REVIEW_CREATED_AT
+     	  FROM USERS U INNER JOIN REVIEW R
+            ON U.USER_NO = R.USER_NO INNER JOIN ORDER_DETAIL OD
+     	    ON R.ORDER_DETAIL_NO = OD.ORDER_DETAIL_NO INNER JOIN PRODUCT P
+     	    ON OD.PROD_NO = P.PROD_NO
+	     WHERE P.PROD_NO = #{prodNo}
+	</select>
+    
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.vinery.mapper.OrderMapper">	
+	
+	<insert id="insertOrders" parameterType="OrdersDTO">
+		INSERT INTO
+			ORDERS
+			VALUES(
+				   ORDERS_SEQ.NEXTVAL
+				 , #{userNo}
+				 , SYSDATE
+				 , #{receiverName}
+				 , #{receiverTel}
+                 , #{postCode}
+				 , #{receiverAddress}
+				 , #{receiverJibunAddress}
+				 , #{receiverDetailAddress}
+				 , #{orderRequest}
+				 , NULL
+				 , #{orderAmount}
+				 , NULL
+				 , NULL
+				 , NULL
+			)
+	</insert>
+	
+	<select id="selectMyOrder" parameterType="int" resultType="OrdersDTO">
+		SELECT ORDER_NO, USER_NO, ORDER_DATE, RECEIVER_NAME, RECEIVER_TEL, POST_CODE, RECEIVER_ADDRESS, RECEIVER_JIBUN_ADDRESS, RECEIVER_DETAIL_ADDRESS, ORDER_REQUEST, ORDER_AMOUNT
+		  FROM (SELECT ORDER_NO, USER_NO, ORDER_DATE, RECEIVER_NAME, RECEIVER_TEL, POST_CODE, RECEIVER_ADDRESS, RECEIVER_JIBUN_ADDRESS, RECEIVER_DETAIL_ADDRESS, ORDER_REQUEST, ORDER_AMOUNT
+		          FROM ORDERS
+		         WHERE USER_NO = #{userNo}
+		         ORDER BY ORDER_NO DESC)
+		  WHERE ROWNUM = 1
+	</select>
+
+	<select id="getUserByUserNo" parameterType="int" resultType="UserDTO">
+		SELECT USER_NO, USER_NAME, USER_EMAIL, USER_TEL
+		  FROM USERS
+		 WHERE USER_NO = #{userNo} 
+	</select>
+	
+	<select id="getProdByNo" parameterType="int" resultType="CartDTO">
+		SELECT CART_NO, USER_NO, PROD_NO, QUANTITY, PROD_NAME, PROD_PRICE, PROD_THUMBNAIL
+		  FROM CART
+		 WHERE PROD_NO = #{prodNo} 
+	</select>
+	
+	<select id="getFromProd" parameterType="int" resultType="ProductDTO">
+		SELECT *
+		  FROM PRODUCT
+		 WHERE PROD_NO = #{prodNo} 
+	</select>
+
+
+</mapper>

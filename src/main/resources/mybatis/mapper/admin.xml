@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace는 @Mapper를 지정한다. -->
+<mapper namespace="com.gdu.vinery.mapper.AdminMapper">
+  
+  <select id="getProductsCount" resultType="int">
+    SELECT COUNT(*)
+      FROM PRODUCT
+  </select>
+  
+	<select id="getProductListUsingPagination" resultType="ProductDTO">
+     SELECT A.RN 
+          , A.PROD_NO
+          , A.PROD_NAME
+          , A.PROD_NAME_ENG
+          , A.PROD_PRICE
+          , A.PROD_CONTENT
+          , A.PROD_THUMBNAIL
+          , A.PROD_IMG
+          , A.PROD_TYPE
+          , A.PROD_NATION
+          , A.PROD_BODY
+          , A.PROD_ALCOHOL
+          , A.PROD_DATE
+          , A.PROD_STOCK
+       FROM (SELECT ROW_NUMBER() OVER(ORDER BY ${column} ${order}) AS RN
+		              , PROD_NO
+					        , PROD_NAME
+					        , PROD_NAME_ENG
+					        , PROD_PRICE
+					        , PROD_CONTENT
+					        , PROD_THUMBNAIL
+					        , PROD_IMG
+					        , PROD_TYPE
+					        , PROD_NATION
+					        , PROD_BODY
+					        , PROD_ALCOHOL
+					        , PROD_DATE
+					        , PROD_STOCK
+					     FROM PRODUCT ) A
+      WHERE A.RN BETWEEN #{begin} AND #{end} 
+	</select>
+	
+	
+  <select id="selectProdByNo" resultType="ProductDTO">
+    SELECT *
+      FROM PRODUCT
+     WHERE PROD_NO = #{prodNo}
+  </select>
+  
+  <update id="modifyProd" parameterType="ProductDTO">
+    UPDATE PRODUCT
+       SET PROD_NAME = #{prodName}
+         , PROD_NAME_ENG = #{prodNameEng}
+         , PROD_PRICE = #{prodPrice}
+         , PROD_TYPE = #{prodType}
+         , PROD_NATION = #{prodNation}
+         , PROD_ALCOHOL = #{prodAlcohol}
+         , PROD_DATE = #{prodDate}
+         , PROD_STOCK = #{prodStock}
+     WHERE PROD_NO = #{prodNo} 
+  </update>
+  
+  <delete id="deleteProd" parameterType="int">
+    DELETE 
+      FROM PRODUCT
+     WHERE PROD_NO = #{prodNo}
+  </delete>
+  
+  <insert id="insertProd" parameterType="ProductDTO">
+     INSERT INTO PRODUCT(
+	        PROD_NO
+	      , PROD_NAME
+	      , PROD_NAME_ENG
+	      , PROD_PRICE
+	      , PROD_CONTENT
+	      , PROD_THUMBNAIL
+	      , PROD_IMG
+	      , PROD_TYPE
+	      , PROD_NATION
+	      , PROD_BODY
+	      , PROD_ALCOHOL
+	      , PROD_DATE
+	      , PROD_STOCK
+	    ) VALUES (
+	        PROD_SEQ.NEXTVAL
+	      , #{prodName}
+	      , #{prodNameEng}
+	      , #{prodPrice}
+	      , #{prodContent}
+	      , #{prodThumbnail}
+	      , #{prodImg}
+	      , #{prodType}
+	      , #{prodNation}
+	      , #{prodBody}
+	      , #{prodAlcohol}
+	      , #{prodDate}
+	      , #{prodStock}
+	    )
+  </insert>
+  
+
+	<select id="searchProd" parameterType="String" resultType="ProductDTO">
+	    SELECT *
+	      FROM PRODUCT
+	     WHERE PROD_NAME      LIKE  '%'  || #{prodN} || '%'
+	        OR PROD_NAME_ENG  LIKE  '%'  || #{prodN} || '%'
+	</select>
+  
+  <select id="selectUsers" resultType="UserDTO">
+    SELECT *
+      FROM USERS
+  </select>
+  
+   <select id="selectUserByNo" resultType="UserDTO">
+	   SELECT *
+	     FROM USERS
+	    WEHRE USER_NO = #{userNo}
+   </select>
+  
+  <select id="selectNotices" resultType="NoticeDTO">
+    SELECT *
+      FROM NOTICE
+  </select>
+  
+  <select id="selectOrders" resultType="OrdersDTO">
+    SELECT *
+      FROM ORDERS
+  </select>
+  
+  
+</mapper>
